@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//LOGGER" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<log4j:configuration>
+	<appender name="allAppender" class="org.apache.log4j.RollingFileAppender"> 
+	  <param name="file" value="/tmp/userStory/userStory_All.log"/>
+	  <param name="MaxFileSize" value="1MB"/>
+	  <param name="MaxBackupIndex" value="2"/>
+	  <layout class="org.apache.log4j.PatternLayout"> 
+	    <param name="ConversionPattern" value="%d{ISO8601} [%d{z}] - %-5p [%t]: [%C] %m%n"/> 
+	  </layout> 
+	</appender>
+  
+  	<appender name="hibernateAppender" class="org.apache.log4j.RollingFileAppender"> 
+	  <param name="file" value="/tmp/userStory/userStory_Hibernate.log"/>
+	  <param name="MaxFileSize" value="1MB"/>
+	  <param name="MaxBackupIndex" value="2"/>
+	  <layout class="org.apache.log4j.PatternLayout"> 
+	    <param name="ConversionPattern" value="%d{ISO8601} [%d{z}] - %-5p [%t]: [%C] %m%n"/> 
+	  </layout> 
+	</appender>
+	
+	<appender name="springAppender" class="org.apache.log4j.RollingFileAppender"> 
+	  <param name="file" value="/tmp/userStory/userStory_Spring.log"/>
+	  <param name="MaxFileSize" value="1MB"/>
+	  <param name="MaxBackupIndex" value="2"/>
+	  <layout class="org.apache.log4j.PatternLayout"> 
+	    <param name="ConversionPattern" value="%d{ISO8601} [%d{z}] - %-5p [%t]: [%C] %m%n"/> 
+	  </layout> 
+	</appender>
+	
+	<appender name="springMongoAppender" class="org.springframework.data.document.mongodb"> 
+	  <param name="file" value="/tmp/userStory/userStory_SpringMongo.log"/>
+	  <param name="MaxFileSize" value="1MB"/>
+	  <param name="MaxBackupIndex" value="2"/>
+	  <layout class="org.apache.log4j.PatternLayout"> 
+	    <param name="ConversionPattern" value="%d{ABSOLUTE} %5p %40.40c:%4L - %m%n"/> 
+	  </layout> 
+	</appender>	
+	
+	<appender name="technicalAppender" class="org.apache.log4j.RollingFileAppender"> 
+	  <param name="file" value="/tmp/userStory/userStory_Technical.log"/>
+	  <param name="MaxFileSize" value="1MB"/>
+	  <param name="MaxBackupIndex" value="2"/>
+	  <layout class="org.apache.log4j.PatternLayout"> 
+	    <param name="ConversionPattern" value="%d{ISO8601} [%d{z}] - %-5p [%t]: [%C] %m%n"/> 
+	  </layout> 
+	</appender>
+	
+	<logger name="org.hibernate" additivity="false">
+		<level value="info"/>
+		<appender-ref ref="hibernateAppender" />
+	</logger>
+	
+	<logger name="org.springframework" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="springAppender" />
+		<appender-ref ref="springMongoAppender" />
+	</logger>
+	
+	<logger name="sk.funix.userstory" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="technicalAppender" />
+	</logger>
+	
+<category name="org.springframework.beans">
+    <priority value="debug" />
+</category>
+
+<category name="org.springframework.security">
+    <priority value="debug" />
+</category>
+  
+	<root> 
+	  <priority value ="debug" /> 
+	  <appender-ref ref="allAppender" /> 
+	</root>
+</log4j:configuration>
