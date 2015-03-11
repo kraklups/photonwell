@@ -1,48 +1,44 @@
 package net.kraklups.photonwell.model.datavalue;
 
+import org.hibernate.validator.constraints.NotEmpty;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+public final class DataValueDTO {
 
-@Document (collection="DataValue")
-public class DataValue {
-
-	@Id
-	@Field
 	private String dataValueId;
 	
-	@Field
+	@NotEmpty
 	private String taskPrkId;
 	
-	@Field
+	@NotEmpty
 	private String elementPrkId;
 	
-	@Field
+	@NotEmpty
 	private String dataLoggerId;
 	
-	@Field
+	@NotEmpty
 	private String sensorId;   
 	
-	@Field
+	@NotEmpty
 	private String dtValue;
 	
-	@Field
+	@NotEmpty
 	private String dtType;
+
+	public DataValueDTO() {	
+	}	
 	
-	public DataValue() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public DataValue(String taskPrkId, String elementPrkId, String dataLoggerId, String sensorId, String dtValue, String dtType) {
-		this.taskPrkId =taskPrkId;
+	public DataValueDTO(String dataValueId, String taskPrkId, String elementPrkId, String dataLoggerId, 
+			String sensorId, String dtValue, String dtType) {
+		
+		this.dataValueId = dataValueId;
+		this.taskPrkId = taskPrkId;
 		this.elementPrkId = elementPrkId;
 		this.dataLoggerId = dataLoggerId;
 		this.sensorId = sensorId;
-		this.dtValue = dtValue;
 		this.dtType = dtType;
+		this.dtValue = dtValue;
 	}
-	
+
 	public String getDataValueId() {
 		return dataValueId;
 	}
@@ -104,6 +100,6 @@ public class DataValue {
         return "DataValueMngDb [dataValueId=" + dataValueId + ", TaskPrk=" + taskPrkId + 
         		", ElementPrk=" + elementPrkId + ", DataLogger=" + dataLoggerId + 
         		", Sensor=" + sensorId + ", value=" + dtValue + ", type=" + dtType + "]";
-    }	
+    }		
 	
 }

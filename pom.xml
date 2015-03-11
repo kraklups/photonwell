@@ -121,6 +121,20 @@
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
 		</dependency>
+
+        <!-- Validation API -->
+        <dependency>
+    		<groupId>javax.validation</groupId>
+    		<artifactId>validation-api</artifactId>
+    		<version>${validation-api.version}</version>
+		</dependency>
+		
+		<!-- Hibernate Validation -->
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-validator</artifactId>
+    		<version>${hibernate-validator.version}</version>
+	    </dependency>
 		
 	</dependencies>
 
