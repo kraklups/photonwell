@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class DataValue {
 
 	@Id
+	private String id;
+	
 	@Field
 	private String dataValueId;
 	
@@ -29,13 +31,15 @@ public class DataValue {
 	
 	@Field
 	private String dtType;
-	
+		
 	public DataValue() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
-	public DataValue(String taskPrkId, String elementPrkId, String dataLoggerId, String sensorId, String dtValue, String dtType) {
-		this.taskPrkId =taskPrkId;
+	public DataValue(String dataValueId, String taskPrkId, String elementPrkId, 
+    		String dataLoggerId, String sensorId, String dtValue, String dtType) {
+		this.dataValueId = dataValueId;
+		this.taskPrkId = taskPrkId;
 		this.elementPrkId = elementPrkId;
 		this.dataLoggerId = dataLoggerId;
 		this.sensorId = sensorId;
@@ -43,26 +47,34 @@ public class DataValue {
 		this.dtType = dtType;
 	}
 	
+	public String getId() {
+		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}	
+		
 	public String getDataValueId() {
 		return dataValueId;
-	}
+	}	
 	
 	public void setDataValueId(String dataValueId) {
 		this.dataValueId = dataValueId;
 	}
-
+		
 	public String getTaskPrkId() {
 		return taskPrkId;
 	}
-	
+
 	public void setTaskPrkId(String taskPrkId) {
 		this.taskPrkId = taskPrkId;
 	}
-
-	public String getelEmentPrkId() {
+	
+	public String getElementPrkId() {
 		return elementPrkId;
 	}
-	
+
 	public void setElementPrkId(String elementPrkId) {
 		this.elementPrkId = elementPrkId;
 	}
@@ -70,7 +82,7 @@ public class DataValue {
 	public String getDataLoggerId() {
 		return dataLoggerId;
 	}
-	
+
 	public void setDataLoggerId(String dataLoggerId) {
 		this.dataLoggerId = dataLoggerId;
 	}
@@ -78,11 +90,11 @@ public class DataValue {
 	public String getSensorId() {
 		return sensorId;
 	}
-	
+
 	public void setSensorId(String sensorId) {
 		this.sensorId = sensorId;
 	}
-
+	
 	public String getDtValue() {
 		return dtValue;
 	}
@@ -91,19 +103,32 @@ public class DataValue {
 		this.dtValue = dtValue;
 	}
 
-	public String getDtTypeId() {
+	public String getDtType() {
 		return dtType;
 	}
-	
+
 	public void setDtType(String dtType) {
 		this.dtType = dtType;
 	}
 
+    public void update(String dataValueId, String taskPrkId, String elementPrkId, 
+    		String dataLoggerId, String sensorId, String dtValue, String dtType) {
+    	
+        this.dataValueId = dataValueId;
+        this.taskPrkId = taskPrkId;
+        this.elementPrkId = elementPrkId;
+        this.dataLoggerId = dataLoggerId;
+        this.sensorId = sensorId;
+        this.dtValue = dtValue;
+        this.dtType = dtType;     
+    }	
+	
 	@Override
     public String toString() {
         return "DataValueMngDb [dataValueId=" + dataValueId + ", TaskPrk=" + taskPrkId + 
         		", ElementPrk=" + elementPrkId + ", DataLogger=" + dataLoggerId + 
         		", Sensor=" + sensorId + ", value=" + dtValue + ", type=" + dtType + "]";
     }	
+	
 	
 }

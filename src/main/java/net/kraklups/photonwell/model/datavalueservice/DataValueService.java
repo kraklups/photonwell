@@ -8,11 +8,11 @@ public interface DataValueService {
 	
 	DataValueDTO create(DataValueDTO dataValue);
 	
-	DataValueDTO delete(String dataValueId);
+	DataValueDTO delete(String id);
 	
 	List<DataValueDTO> findAll();
 	
-	DataValueDTO findBy(String dataValueId);
+	DataValueDTO findById(String id);
 	
 	DataValueDTO update(DataValueDTO dataValue);
 

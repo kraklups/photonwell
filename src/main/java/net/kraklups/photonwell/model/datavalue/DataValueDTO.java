@@ -4,6 +4,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public final class DataValueDTO {
 
+	private String id;
+	
+	@NotEmpty
 	private String dataValueId;
 	
 	@NotEmpty
@@ -39,6 +42,14 @@ public final class DataValueDTO {
 		this.dtValue = dtValue;
 	}
 
+	public String getId() {
+		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}	
+	
 	public String getDataValueId() {
 		return dataValueId;
 	}
@@ -55,7 +66,7 @@ public final class DataValueDTO {
 		this.taskPrkId = taskPrkId;
 	}
 
-	public String getelEmentPrkId() {
+	public String getElementPrkId() {
 		return elementPrkId;
 	}
 	
@@ -87,7 +98,7 @@ public final class DataValueDTO {
 		this.dtValue = dtValue;
 	}
 
-	public String getDtTypeId() {
+	public String getDtType() {
 		return dtType;
 	}
 	

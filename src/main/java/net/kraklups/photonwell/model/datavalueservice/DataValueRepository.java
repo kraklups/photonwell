@@ -14,5 +14,6 @@ public interface DataValueRepository extends CrudRepository<DataValue, String> {
 	
 	DataValue findOne(String dataValueId);
 	
+	@SuppressWarnings("unchecked")
 	DataValue save(DataValue saved);
 }
