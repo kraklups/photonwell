@@ -18,7 +18,7 @@
 	<mongo:mongo id="mongo" host="192.168.1.107" port="27017" />
 
 	<!-- For defining mongo repository -->
-	<mongo:repositories base-package="net.kraklups.photonwell.model.repositories" />
+	<mongo:repositories base-package="net.kraklups.photonwell.repositories" />
   	
 	<mongo:db-factory id="mongoDbFactory"
                   host="192.168.1.107"
