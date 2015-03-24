@@ -1,4 +1,4 @@
-package net.kraklups.photonwell.model.repositories;
+package net.kraklups.photonwell.repositories;
 
 import java.util.List;
 

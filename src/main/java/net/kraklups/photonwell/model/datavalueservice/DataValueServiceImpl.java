@@ -3,7 +3,7 @@ package net.kraklups.photonwell.model.datavalueservice;
 import java.util.List;
 
 import net.kraklups.photonwell.model.datavalue.DataValue;
-import net.kraklups.photonwell.model.repositories.DataValueRepository;
+import net.kraklups.photonwell.repositories.DataValueRepository;
 import net.kraklups.photonwell.util.DataValueNotFoundException;
 
 import org.slf4j.Logger;
