@@ -1,11 +1,9 @@
 package net.kraklups.photonwell.model.datavalueservice;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import net.kraklups.photonwell.model.datavalue.DataValue;
-import net.kraklups.photonwell.model.datavalue.DataValueDTO;
+import net.kraklups.photonwell.model.repositories.DataValueRepository;
 import net.kraklups.photonwell.util.DataValueNotFoundException;
 
 import org.slf4j.Logger;
@@ -26,28 +24,22 @@ final class DataValueServiceImpl  implements DataValueService {
 	}
 	
 	@Override
-	public DataValueDTO create(DataValueDTO dataValue) {
+	public DataValue create(DataValue dt) {
 
-		LOGGER.info("Creating a new dataValue entry with information: {}", dataValue);
+		LOGGER.info("Creating a new dataValue entry with information: {}", dt.getDataValueId());
 		
-		DataValue persisted = new DataValue(
-				dataValue.getDataValueId(),
-				dataValue.getTaskPrkId(),
-				dataValue.getElementPrkId(),
-				dataValue.getDataLoggerId(),
-				dataValue.getSensorId(),
-				dataValue.getDtValue(),
-				dataValue.getDtType());
+		DataValue persisted = new DataValue(dt.getDataValueId(), dt.getTaskPrkId(), dt.getElementPrkId(),
+				dt.getDataLoggerId(), dt.getSensorId(), dt.getDtValue(), dt.getDtType());
 		
 		persisted = repository.save(persisted);
 		
 		LOGGER.info("Created a new dataValue entry with information: {}", persisted);
 		
-		return convertToDTO(persisted);
+		return persisted;
 	}
 
 	@Override
-	public DataValueDTO delete(String id) {
+	public DataValue delete(String id) {
 		LOGGER.info("Deleting a todo entry with id: {}", id);
 		
 		DataValue deleted = findDataValueById(id);
@@ -55,46 +47,33 @@ final class DataValueServiceImpl  implements DataValueService {
 
         LOGGER.info("Deleted todo entry with informtation: {}", deleted);
 
-        return convertToDTO(deleted);
+        return deleted;
 	}
 
 	@Override
-	public List<DataValueDTO> findAll() {
+	public List<DataValue> findAll() {
 		LOGGER.info("Finding all todo entries.");
 
         List<DataValue> dataValueEntries = repository.findAll();
 
         LOGGER.info("Found {} todo entries", dataValueEntries.size());
 
-        return convertToDTOs(dataValueEntries);
+        return dataValueEntries;
 	}
-
-	private List<DataValueDTO> convertToDTOs(List<DataValue> models) {
-		
-		List<DataValueDTO> listDt = new ArrayList<DataValueDTO>();
-		
-		Iterator<DataValue> iterator = models.iterator();
-		
-		while (iterator.hasNext()) {
-			listDt.add(convertToDTO(iterator.next()));
-		}
-		
-		return listDt;		
-    }
 	
 	@Override
-	public DataValueDTO findById(String id) {
+	public DataValue findById(String id) {
 	    LOGGER.info("Finding todo entry with id: {}", id);
 
         DataValue found = findDataValueById(id);
 
         LOGGER.info("Found todo entry: {}", found);
 
-        return convertToDTO(found);
+        return found;
     }
 
 	@Override
-	public DataValueDTO update(DataValueDTO dataValue) {
+	public DataValue update(DataValue dataValue) {
 	    LOGGER.info("Updating dataValue entry with information: {}", dataValue);
 
 	    DataValue updated = findDataValueById(dataValue.getId());
@@ -104,7 +83,7 @@ final class DataValueServiceImpl  implements DataValueService {
 
         LOGGER.info("Updated todo entry with information: {}", updated);
 
-        return convertToDTO(updated);
+        return updated;
 	}
 
 	private DataValue findDataValueById(String id) {
@@ -116,20 +95,5 @@ final class DataValueServiceImpl  implements DataValueService {
         	return result;
         }
     }
-
-	private DataValueDTO convertToDTO(DataValue model) {
-		DataValueDTO dto = new DataValueDTO();
-
-		dto.setId(model.getId());
-		dto.setDataValueId(model.getDataValueId());
-		dto.setTaskPrkId(model.getTaskPrkId());
-		dto.setElementPrkId(model.getElementPrkId());
-		dto.setDataLoggerId(model.getDataLoggerId());
-		dto.setSensorId(model.getSensorId());
-		dto.setDtType(model.getDtType());
-		dto.setDtValue(model.getDtValue());
-
-		return dto;
-	}	
 	
 }

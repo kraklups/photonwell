@@ -14,6 +14,7 @@
 	<properties>
         <!-- Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Package versions (except those defined in "profiles" section) -->
         <slf4j.version>1.7.10</slf4j.version>
@@ -43,8 +44,6 @@
         <mavenEclipsePlugin.version>2.9</mavenEclipsePlugin.version>
 		<java.version>1.7</java.version>
 	</properties>
-
-
 
     <!-- ========================================================== -->    
     <!-- Dependency management -->      
@@ -100,7 +99,12 @@
       	<scope>test</scope>
     	</dependency>
     	
-        <!-- Spring -->     	
+        <!-- Spring -->           
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -110,11 +114,16 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>		
 		</dependency>
-
+		
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-		</dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
 
 		<!-- MongoDB Driver -->
 		<dependency>
@@ -133,7 +142,6 @@
 		<dependency>
     		<groupId>org.hibernate</groupId>
     		<artifactId>hibernate-validator</artifactId>
-    		<version>${hibernate-validator.version}</version>
 	    </dependency>
 		
 	</dependencies>
@@ -142,10 +150,7 @@
         <!-- =============================================================== -->	
     	<finalName>${project.artifactId}</finalName>
         
-        <!-- =============================================================== -->
-        <!-- Filtering -->
         <resources>
-
             <!--
                 Apply filtering to files matching the following
                 expressions in src/main/resources.
@@ -154,11 +159,7 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>spring-config.xml</include>
-                    <include>hibernate-config.xml</include>
-                    <include>servlet-context-config.xml</include>
-                    <include>spring-sec-config</include>
-                    <include>tiles-definitions.xml</include>                    
+                    <include>spring-config.xml</include>                  
                 </includes>
             </resource>
 
@@ -169,61 +170,9 @@
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
-
-            <!-- Filter Jetty configuration -->
-            <resource>
-                <directory>src/main/jetty</directory>
-                <includes>
-                    <include>jetty-env.xml</include>
-                </includes>
-                <targetPath>../jetty</targetPath>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-
-        <testResources>
-            <!--
-                Apply filtering to files matching the following
-                expressions in src/test/resources.
-            -->
-            <testResource>
-                <directory>src/test/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>spring-config-test.xml</include>
-                    <include>hibernate-config-experiments.xml</include>
-                </includes>
-            </testResource>
-
-            <!--
-                Continue considering resources the files in
-                src/test/resources, but without applying filtering.
-            -->
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-
-        </testResources>
-
-		<pluginManagement>
-			<plugins>
-	        <!-- 
-	             Added to avoid problems with the maven plugin for 
-				 eclipse
-	        -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+        </resources>        
         
-        <plugins>
+        <plugins>        
 			<plugin>
     			<groupId>org.apache.maven.plugins</groupId>
     			<artifactId>maven-eclipse-plugin</artifactId>
@@ -238,8 +187,8 @@
         			<downloadSources>true</downloadSources>
         			<downloadJavadocs>true</downloadJavadocs>
     			</configuration>
-			</plugin>
-
+			</plugin>   
+			     
             <!-- ========================================================== -->
             <!-- Compiler configuration -->
             <plugin>
@@ -255,68 +204,23 @@
                     <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
-
-            <!-- ========================================================== -->
+            
+			<!-- ========================================================== -->
             <!-- Resources plugin (2.4.x versions do not correctly filter
                  files containing '@' character). -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>${mavenResourcesPlugin.version}</version>
-           </plugin>        
-        
-                    <!-- ========================================================== -->
-            <!-- Assembly configuration -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>${mavenAssemblyPlugin.version}</version>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/main/assembly/src.xml</descriptor>
-                    </descriptors>
-                </configuration>
             </plugin>
-
+                    
 			<!-- ========================================================== -->
         	<!-- Spring Boot Maven Support -->
 	        <plugin>
     	        <groupId>org.springframework.boot</groupId>
         	    <artifactId>spring-boot-maven-plugin</artifactId>
+        	    <version>${spring-boot-parent.version}</version>
         	</plugin>
-
-            <!-- ========================================================== -->
-            <!-- Jetty configuration -->
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jettyMavenPlugin}</version>
-
-                <configuration>
-                    <webApp>
-                      <contextPath>/${project.artifactId}</contextPath>
-                        <jettyEnvXml>target/jetty/jetty-env.xml</jettyEnvXml>
-                    </webApp>
-                    <reload>manual</reload>                   
-                    <httpConnector>
-                    	<port>9090</port>
-                    </httpConnector>                    
-                </configuration>
-
-                <dependencies>
-                    <dependency>
-                        <groupId>${jdbcDriver.groupId}</groupId>
-                        <artifactId>${jdbcDriver.artifactId}</artifactId>
-                        <version>${jdbcDriver.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jdbc</artifactId>
-                        <version>${spring.version}</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                </dependencies>
-            </plugin>
             
 		</plugins>            
         

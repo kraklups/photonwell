@@ -1,0 +1,7 @@
+net/kraklups/photonwell/model/datavalue/DataValue.class
+net/kraklups/photonwell/util/DataValueNotFoundException.class
+net/kraklups/photonwell/controller/DataValueController.class
+net/kraklups/photonwell/util/DataValueAppConfig.class
+net/kraklups/photonwell/model/datavalueservice/DataValueService.class
+net/kraklups/photonwell/model/datavalueservice/DataValueServiceImpl.class
+net/kraklups/photonwell/model/repositories/DataValueRepository.class

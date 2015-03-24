@@ -2,18 +2,18 @@ package net.kraklups.photonwell.model.datavalueservice;
 
 import java.util.List;
 
-import net.kraklups.photonwell.model.datavalue.DataValueDTO;
+import net.kraklups.photonwell.model.datavalue.DataValue;
 
 public interface DataValueService {
 	
-	DataValueDTO create(DataValueDTO dataValue);
+	public DataValue create(DataValue dataValue);
 	
-	DataValueDTO delete(String id);
+	public DataValue delete(String id);
 	
-	List<DataValueDTO> findAll();
+	public List<DataValue> findAll();
 	
-	DataValueDTO findById(String id);
+	public DataValue findById(String id);
 	
-	DataValueDTO update(DataValueDTO dataValue);
+	public DataValue update(DataValue dataValue);
 
 }

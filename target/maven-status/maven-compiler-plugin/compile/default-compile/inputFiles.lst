@@ -1,0 +1,7 @@
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalueservice/DataValueService.java
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalue/DataValue.java
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/repositories/DataValueRepository.java
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/util/DataValueNotFoundException.java
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/util/DataValueAppConfig.java
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/controller/DataValueController.java
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalueservice/DataValueServiceImpl.java

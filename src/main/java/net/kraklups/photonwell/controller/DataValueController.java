@@ -4,8 +4,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import net.kraklups.photonwell.model.datavalue.DataValueDTO;
+import net.kraklups.photonwell.model.datavalue.DataValue;
 import net.kraklups.photonwell.model.datavalueservice.DataValueService;
+import net.kraklups.photonwell.model.repositories.DataValueRepository;
 import net.kraklups.photonwell.util.DataValueNotFoundException;
 
 import org.slf4j.Logger;
@@ -20,10 +21,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/pw")
 final class DataValueController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DataValueController.class);
+	
+	@Autowired
+	private DataValueRepository repository;
 	
 	private final DataValueService service;
 	
@@ -33,15 +37,15 @@ final class DataValueController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	DataValueDTO create(@RequestBody @Valid DataValueDTO dataValueEntry) {
-		return service.create(dataValueEntry);
+	public DataValue create(@RequestBody @Valid DataValue dataValue) {
+		return service.create(dataValue);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-    List<DataValueDTO> findAll() {
+    public List<DataValue> findAll() {
         return service.findAll();
-    }	
-
+    }		
+	
 	@ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public void handleDataValueNotFound(DataValueNotFoundException ex) {
