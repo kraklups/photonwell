@@ -7,7 +7,7 @@ import net.kraklups.photonwell.model.datavalue.DataValue;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@RepositoryRestResource(collectionResourceRel = "pw", path = "pw")
+@RepositoryRestResource(collectionResourceRel = "datavalue", path = "datavalue")
 public interface DataValueRepository extends MongoRepository<DataValue, String> {
 
 	void delete (DataValue deleted);

@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import net.kraklups.photonwell.model.datavalue.DataValue;
-import net.kraklups.photonwell.model.datavalueservice.DataValueService;
-import net.kraklups.photonwell.repositories.DataValueRepository;
-import net.kraklups.photonwell.util.DataValueNotFoundException;
+import net.kraklups.photonwell.model.alarm.Alarm;
+import net.kraklups.photonwell.model.alarmservice.AlarmService;
+import net.kraklups.photonwell.repositories.AlarmRepository;
+import net.kraklups.photonwell.util.AlarmNotFoundException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,34 +21,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/dv")
-final class DataValueController {
+@RequestMapping("/alarm")
+final class AlarmController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DataValueController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AlarmController.class);
 	
 	@Autowired
-	private DataValueRepository repository;
+	private AlarmRepository repository;
 	
-	private final DataValueService service;
+	private final AlarmService service;
 	
 	@Autowired
-	public DataValueController(DataValueService service) {
+	public AlarmController(AlarmService service) {
 		this.service = service;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public DataValue create(@RequestBody @Valid DataValue dataValue) {
-		return service.create(dataValue);
+	public Alarm create(@RequestBody @Valid Alarm alarm) {
+		return service.create(alarm);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-    public List<DataValue> findAll() {
+    public List<Alarm> findAll() {
         return service.findAll();
     }		
 	
 	@ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void handleDataValueNotFound(DataValueNotFoundException ex) {
+    public void handleDataValueNotFound(AlarmNotFoundException ex) {
 		LOGGER.error("Handling error with message: {}", ex.getMessage());
     }
 }
