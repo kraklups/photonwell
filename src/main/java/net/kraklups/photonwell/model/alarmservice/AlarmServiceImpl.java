@@ -3,8 +3,10 @@ package net.kraklups.photonwell.model.alarmservice;
 import java.util.List;
 
 import net.kraklups.photonwell.model.alarm.Alarm;
+import net.kraklups.photonwell.model.alarm.SeqAlarmService;
 import net.kraklups.photonwell.repositories.AlarmRepository;
 import net.kraklups.photonwell.util.DataValueNotFoundException;
+import net.kraklups.photonwell.util.SeqAlarmException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,12 @@ final class AlarmServiceImpl  implements AlarmService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AlarmServiceImpl.class);
 	
+	private static final String ALARM_SEQ_KEY = "alarm";
+	
+	@Autowired
+	private SeqAlarmService seqAlarmService;
+	
+	@Autowired
 	private final AlarmRepository repository;
 	
 	@Autowired
@@ -24,16 +32,18 @@ final class AlarmServiceImpl  implements AlarmService {
 	}
 	
 	@Override
-	public Alarm create(Alarm alarm) {
+	public Alarm create(Alarm alarm) throws SeqAlarmException {
 
-		LOGGER.info("Creating a new dataValue entry with information: {}", alarm.getEventTskId());
+		LOGGER.info("Creating a new alarm entry with information: {}", alarm.getEventTskId());
 		
-		Alarm persisted = new Alarm(alarm.getId(), alarm.getEventTskId(), alarm.getAlarmId(), 
+		Alarm persisted = new Alarm(alarm.getEventTskId(), alarm.getAlarmId(), 
         		alarm.getTriggerDate(), alarm.getRuleEventTsk());
+		
+		persisted.setId(seqAlarmService.getNextSeqAlarmId(ALARM_SEQ_KEY));
 		
 		persisted = repository.save(persisted);
 		
-		LOGGER.info("Created a new dataValue entry with information: {}", persisted);
+		LOGGER.info("Created a new alarm entry with information: {}", persisted);
 		
 		return persisted;
 	}
@@ -75,15 +85,17 @@ final class AlarmServiceImpl  implements AlarmService {
 	@Override
 	public Alarm update(Alarm alarm) {
 	    LOGGER.info("Updating dataValue entry with information: {}", alarm);
-
+/*
 	    Alarm updated = findAlarmById(alarm.getId());
-        updated.update(alarm.getId(), alarm.getEventTskId(), alarm.getAlarmId(), 
+        updated.update(alarm.getEventTskId(), alarm.getAlarmId(), 
         		alarm.getTriggerDate(), alarm.getRuleEventTsk());
         updated = repository.save(updated);
 
         LOGGER.info("Updated todo entry with information: {}", updated);
 
-        return updated;
+        return updated; */
+	    
+	    return null;
 	}
 
 	private Alarm findAlarmById(String id) {

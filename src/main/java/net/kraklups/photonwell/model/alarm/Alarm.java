@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Alarm {
 
 	@Id
-	private String id;
+	private long id;
 	
 	@Field
 	private String eventTskId;
@@ -28,19 +28,18 @@ public class Alarm {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Alarm(String id, String eventTskId, String alarmId, Date triggerDate, String ruleEventTsk) {
-		this.id = id;
+	public Alarm(String eventTskId, String alarmId, Date triggerDate, String ruleEventTsk) {
 		this.eventTskId = eventTskId;
 		this.alarmId = alarmId;
 		this.triggerDate = triggerDate;
 		this.ruleEventTsk = ruleEventTsk;
 	}
 	
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 	
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}	
 
@@ -76,8 +75,7 @@ public class Alarm {
 		this.ruleEventTsk = ruleEventTsk;
 	}
 	
-	public void update(String id, String eventTskId, String alarmId, Date triggerDate, String ruleEventTsk) {
-		this.id = id;
+	public void update(String eventTskId, String alarmId, Date triggerDate, String ruleEventTsk) {
 		this.eventTskId = eventTskId;
 		this.alarmId = alarmId;
 		this.triggerDate = triggerDate;

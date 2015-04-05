@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import net.kraklups.photonwell.model.alarm.Alarm;
 import net.kraklups.photonwell.model.alarmservice.AlarmService;
-import net.kraklups.photonwell.repositories.AlarmRepository;
 import net.kraklups.photonwell.util.AlarmNotFoundException;
 
 import org.slf4j.Logger;
@@ -27,8 +26,6 @@ final class AlarmController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AlarmController.class);
 	
 	@Autowired
-	private AlarmRepository repository;
-	
 	private final AlarmService service;
 	
 	@Autowired
