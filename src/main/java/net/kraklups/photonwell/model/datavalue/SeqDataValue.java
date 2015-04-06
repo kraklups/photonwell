@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "seqdatavalue")
-public class SeqDataValueId {
+public class SeqDataValue {
 
 	@Id
 	private String id;
@@ -29,7 +29,7 @@ public class SeqDataValueId {
 	
 	@Override
 	public String toString() {
-		return "SeqDataValueId [id=" + id + ", seqDataValue=" + seq + "]";
+		return "SeqDataValue [id=" + id + ", seqDataValue=" + seq + "]";
 	}	
 
 }

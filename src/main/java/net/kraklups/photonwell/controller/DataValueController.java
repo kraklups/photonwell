@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import net.kraklups.photonwell.model.datavalue.DataValue;
 import net.kraklups.photonwell.model.datavalueservice.DataValueService;
-import net.kraklups.photonwell.repositories.DataValueRepository;
 import net.kraklups.photonwell.util.DataValueNotFoundException;
 
 import org.slf4j.Logger;
@@ -21,14 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/dv")
+@RequestMapping("/datavalue")
 final class DataValueController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DataValueController.class);
 	
 	@Autowired
-	private DataValueRepository repository;
-	
 	private final DataValueService service;
 	
 	@Autowired

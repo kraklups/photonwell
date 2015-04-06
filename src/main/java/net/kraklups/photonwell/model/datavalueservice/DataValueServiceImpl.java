@@ -3,6 +3,7 @@ package net.kraklups.photonwell.model.datavalueservice;
 import java.util.List;
 
 import net.kraklups.photonwell.model.datavalue.DataValue;
+import net.kraklups.photonwell.model.datavalue.SeqDataValueService;
 import net.kraklups.photonwell.repositories.DataValueRepository;
 import net.kraklups.photonwell.util.DataValueNotFoundException;
 
@@ -16,6 +17,12 @@ final class DataValueServiceImpl  implements DataValueService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DataValueServiceImpl.class);
 	
+	private static final String DATAVALUE_SEQ_KEY = "datavalue";
+	
+	@Autowired
+	private SeqDataValueService seqDataValueService;
+	
+	@Autowired
 	private final DataValueRepository repository;
 	
 	@Autowired
@@ -30,6 +37,8 @@ final class DataValueServiceImpl  implements DataValueService {
 		
 		DataValue persisted = new DataValue(dt.getDataValueId(), dt.getTaskPrkId(), dt.getElementPrkId(),
 				dt.getDataLoggerId(), dt.getSensorId(), dt.getDtValue(), dt.getDtType());
+		
+		persisted.setId(seqDataValueService.getNextSeqDataValueId(DATAVALUE_SEQ_KEY));
 		
 		persisted = repository.save(persisted);
 		
@@ -75,7 +84,7 @@ final class DataValueServiceImpl  implements DataValueService {
 	@Override
 	public DataValue update(DataValue dataValue) {
 	    LOGGER.info("Updating dataValue entry with information: {}", dataValue);
-
+/*
 	    DataValue updated = findDataValueById(dataValue.getId());
         updated.update(dataValue.getDataValueId(), dataValue.getTaskPrkId(), dataValue.getElementPrkId(), 
         		dataValue.getDataLoggerId(), dataValue.getSensorId(), dataValue.getDtValue(), dataValue.getDtType());
@@ -84,6 +93,8 @@ final class DataValueServiceImpl  implements DataValueService {
         LOGGER.info("Updated todo entry with information: {}", updated);
 
         return updated;
+*/
+	    return null;
 	}
 
 	private DataValue findDataValueById(String id) {

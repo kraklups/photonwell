@@ -4,8 +4,9 @@
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/util/DataValueAppConfig.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/alarm/SeqAlarmServiceImpl.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/util/SeqAlarmException.java
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalue/SeqDataValue.java
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalue/SeqDataValueService.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/repositories/DataValueRepository.java
-/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalue/SeqDataValueId.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/alarm/Alarm.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalueservice/DataValueServiceImpl.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/controller/AlarmController.java
@@ -16,4 +17,5 @@
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/alarmservice/AlarmService.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/controller/DataValueController.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/alarm/SeqAlarm.java
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalue/SeqDataValueServiceImpl.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/alarmservice/AlarmServiceImpl.java

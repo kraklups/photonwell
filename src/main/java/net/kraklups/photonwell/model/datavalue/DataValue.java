@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class DataValue {
 
 	@Id
-	private String id;
+	private long id;
 	
 	@Field
 	private String dataValueId;
@@ -47,11 +47,11 @@ public class DataValue {
 		this.dtType = dtType;
 	}
 	
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 	
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}	
 		
