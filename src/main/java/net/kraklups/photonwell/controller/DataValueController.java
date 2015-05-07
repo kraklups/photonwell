@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/datavalue")
+@RequestMapping("/rest")
 final class DataValueController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DataValueController.class);
@@ -33,15 +34,20 @@ final class DataValueController {
 		this.service = service;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public DataValue create(@RequestBody @Valid DataValue dataValue) {
+	@RequestMapping(value = "/adddatavalue", method = RequestMethod.POST)
+	public @ResponseBody DataValue create(@RequestBody @Valid DataValue dataValue) {
 		return service.create(dataValue);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/getdatavalue", method = RequestMethod.GET)
     public List<DataValue> findAll() {
         return service.findAll();
     }		
+
+	@RequestMapping(value = "/mrdatavalue", method = RequestMethod.GET)
+    public List<DataValue> mapReduceDataValue() {
+        return service.findAll();
+    }	
 	
 	@ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)

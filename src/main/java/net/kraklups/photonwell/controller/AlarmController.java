@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/alarm")
+@RequestMapping("/rest")
 final class AlarmController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AlarmController.class);
@@ -33,12 +34,12 @@ final class AlarmController {
 		this.service = service;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public Alarm create(@RequestBody @Valid Alarm alarm) {
+	@RequestMapping(value = "/addalarm", method = RequestMethod.POST)
+	public @ResponseBody Alarm create(@RequestBody @Valid Alarm alarm) {
 		return service.create(alarm);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/getalarms", method = RequestMethod.GET)
     public List<Alarm> findAll() {
         return service.findAll();
     }		
