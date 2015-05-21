@@ -11,6 +11,7 @@ import net.kraklups.photonwell.util.AlarmNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +44,14 @@ final class AlarmController {
     public List<Alarm> findAll() {
         return service.findAll();
     }		
+
+	@RequestMapping(value = "/getalarm/{alarmId}", method = RequestMethod.GET)
+    public Alarm findAlarm(@PathVariable String alarmId) {
+		
+		Alarm alarm =  service.findById(alarmId);
+		
+        return alarm;
+    }			
 	
 	@ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)

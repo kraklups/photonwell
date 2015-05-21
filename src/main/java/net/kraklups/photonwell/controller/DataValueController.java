@@ -11,6 +11,7 @@ import net.kraklups.photonwell.util.DataValueNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,11 +40,17 @@ final class DataValueController {
 		return service.create(dataValue);
 	}
 	
-	@RequestMapping(value = "/getdatavalue", method = RequestMethod.GET)
+	@RequestMapping(value = "/getdatavalues", method = RequestMethod.GET)
     public List<DataValue> findAll() {
         return service.findAll();
     }		
 
+	@RequestMapping(value = "/getdatavalue/{dataValueId}", method = RequestMethod.GET)
+    public DataValue findDataValue(@PathVariable String dataValueId) {
+        return service.findById(dataValueId);
+    }		
+	
+	
 	@RequestMapping(value = "/mrdatavalue", method = RequestMethod.GET)
     public List<DataValue> mapReduceDataValue() {
         return service.findAll();

@@ -14,7 +14,9 @@ public interface DataValueRepository extends MongoRepository<DataValue, String> 
 	
 	public List<DataValue> findAll();
 	
-	public DataValue findOne(String dataValueId);
+	public DataValue findOne(String id);
+	
+	public DataValue findByDataValueId(String dataVAlueId);
 	
 	@SuppressWarnings("unchecked")
 	public DataValue save(DataValue saved);

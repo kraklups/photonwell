@@ -5,7 +5,7 @@ import java.util.List;
 import net.kraklups.photonwell.model.alarm.Alarm;
 import net.kraklups.photonwell.model.alarm.SeqAlarmService;
 import net.kraklups.photonwell.repositories.AlarmRepository;
-import net.kraklups.photonwell.util.DataValueNotFoundException;
+import net.kraklups.photonwell.util.AlarmNotFoundException;
 import net.kraklups.photonwell.util.SeqAlarmException;
 
 import org.slf4j.Logger;
@@ -49,10 +49,10 @@ final class AlarmServiceImpl  implements AlarmService {
 	}
 
 	@Override
-	public Alarm delete(String id) {
-		LOGGER.info("Deleting a todo entry with id: {}", id);
+	public Alarm delete(String alarmId) {
+		LOGGER.info("Deleting a Alarm entry with id: {}", alarmId);
 		
-		Alarm deleted = findAlarmById(id);
+		Alarm deleted = findAlarmById(alarmId);
         repository.delete(deleted);
 
         LOGGER.info("Deleted todo entry with informtation: {}", deleted);
@@ -62,7 +62,7 @@ final class AlarmServiceImpl  implements AlarmService {
 
 	@Override
 	public List<Alarm> findAll() {
-		LOGGER.info("Finding all todo entries.");
+		LOGGER.info("Finding all Alarms todo entries.");
 
         List<Alarm> alarmEntries = repository.findAll();
 
@@ -72,10 +72,10 @@ final class AlarmServiceImpl  implements AlarmService {
 	}
 	
 	@Override
-	public Alarm findById(String id) {
-	    LOGGER.info("Finding todo entry with id: {}", id);
+	public Alarm findById(String alarmId) {
+	    LOGGER.info("Finding Alarm entry with id: {}", alarmId);
 
-	    Alarm found = findAlarmById(id);
+	    Alarm found = findAlarmById(alarmId);
 
         LOGGER.info("Found todo entry: {}", found);
 
@@ -84,7 +84,7 @@ final class AlarmServiceImpl  implements AlarmService {
 	
 	@Override
 	public Alarm update(Alarm alarm) {
-	    LOGGER.info("Updating dataValue entry with information: {}", alarm);
+	    LOGGER.info("Updating Alarm entry with information: {}", alarm);
 /*
 	    Alarm updated = findAlarmById(alarm.getId());
         updated.update(alarm.getEventTskId(), alarm.getAlarmId(), 
@@ -98,11 +98,11 @@ final class AlarmServiceImpl  implements AlarmService {
 	    return null;
 	}
 
-	private Alarm findAlarmById(String id) {
-		Alarm result = repository.findOne(id);
+	private Alarm findAlarmById(String alarmId) {
+		Alarm result = repository.findByAlarmId(alarmId);
         
         if (result == null) {
-        	throw new DataValueNotFoundException(id);
+        	throw new AlarmNotFoundException(alarmId);
         } else {
         	return result;
         }

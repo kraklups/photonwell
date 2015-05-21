@@ -8,11 +8,11 @@ public interface AlarmService {
 	
 	public Alarm create(Alarm alarm);
 	
-	public Alarm delete(String id);
+	public Alarm delete(String alarmId);
 	
 	public List<Alarm> findAll();
 	
-	public Alarm findById(String id);
+	public Alarm findById(String alarmId);
 	
 	public Alarm update(Alarm alarm);
 

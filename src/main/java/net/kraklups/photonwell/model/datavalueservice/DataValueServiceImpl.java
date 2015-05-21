@@ -97,11 +97,11 @@ final class DataValueServiceImpl  implements DataValueService {
 	    return null;
 	}
 
-	private DataValue findDataValueById(String id) {
-        DataValue result = repository.findOne(id);
+	private DataValue findDataValueById(String dataValueId) {
+        DataValue result = repository.findByDataValueId(dataValueId);
         
         if (result == null) {
-        	throw new DataValueNotFoundException(id);
+        	throw new DataValueNotFoundException(dataValueId);
         } else {
         	return result;
         }
