@@ -34,9 +34,10 @@ public class EventTsk {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public EventTsk(String eventTskId, String synchronizeId, Date tvi, Date tvf, String ruleEventTsk) {
+	public EventTsk(String eventTskId, String synchronizeId, String dataValueId, Date tvi, Date tvf, String ruleEventTsk) {
 		this.eventTskId = eventTskId;
 		this.synchronizeId = synchronizeId;
+		this.dataValueId = dataValueId;
 		this.tvi = tvi;
 		this.tvf = tvf;
 		this.ruleEventTsk = ruleEventTsk;
@@ -66,6 +67,14 @@ public class EventTsk {
 		this.synchronizeId = synchronizeId;
 	}	
 
+	public String getDataValueId() {
+		return synchronizeId;
+	}
+	
+	public void setDataValueId(String dataValueId) {
+		this.dataValueId = dataValueId;
+	}		
+	
 	public Date getTvi() {
 		return tvi;
 	}
@@ -90,9 +99,10 @@ public class EventTsk {
 		this.ruleEventTsk = ruleEventTsk;
 	}
 	
-	public void update(String eventTskId, String synchronizeId, Date tvi, Date tvf, String ruleEventTsk) {
+	public void update(String eventTskId, String synchronizeId, String dataValueId, Date tvi, Date tvf, String ruleEventTsk) {
 		this.eventTskId = eventTskId;
 		this.synchronizeId = synchronizeId;
+		this.dataValueId = dataValueId;
 		this.tvi = tvi;
 		this.tvf = tvf;
 		this.ruleEventTsk = ruleEventTsk;
@@ -100,7 +110,7 @@ public class EventTsk {
 	
 	@Override
     public String toString() {
-        return "EventTskMngDb [eventTskId=" + eventTskId + ", synchronizeId=" + synchronizeId + 
+        return "EventTskMngDb [eventTskId=" + eventTskId + ", synchronizeId=" + synchronizeId + ", dataValueId=" + dataValueId + 
         		", tvi=" + tvi + ", tvf=" + tvf + ", ruleEventTsk=" + ruleEventTsk + "]";
     }
 	

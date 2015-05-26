@@ -36,7 +36,7 @@ final class EventTskServiceImpl  implements EventTskService {
 
 		LOGGER.info("Creating a new eventTsk entry with information: {}", eventTsk.getEventTskId());
 		
-		EventTsk persisted = new EventTsk(eventTsk.getEventTskId(), eventTsk.getSynchronizeId(), 
+		EventTsk persisted = new EventTsk(eventTsk.getEventTskId(), eventTsk.getSynchronizeId(),  eventTsk.getDataValueId(),
         		eventTsk.getTvi(), eventTsk.getTvf(), eventTsk.getRuleEventTsk());
 		
 		persisted.setId(seqEventTskService.getNextSeqEventTskId(EVENTTSK_SEQ_KEY));
