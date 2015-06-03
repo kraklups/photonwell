@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-final class DataValueServiceImpl  implements DataValueService {
+final class DataValueServiceImpl implements DataValueService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DataValueServiceImpl.class);
 	

@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-final class EventTskServiceImpl  implements EventTskService {
+final class EventTskServiceImpl implements EventTskService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EventTskServiceImpl.class);
 	
