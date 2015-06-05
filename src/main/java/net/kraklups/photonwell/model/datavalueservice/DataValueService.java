@@ -16,6 +16,6 @@ public interface DataValueService {
 	
 	public DataValue update(DataValue dataValue);
 	
-	public List<DataValue> mapReduceDataValue(String datavalueId);
+	public List<DataValue> mapReduceDataValue(String datavalueId) throws Exception ;
 
 }

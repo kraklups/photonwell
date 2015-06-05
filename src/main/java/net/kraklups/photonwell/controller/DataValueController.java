@@ -52,7 +52,7 @@ final class DataValueController {
 	
 	
 	@RequestMapping(value = "/mrdatavalue/{dataValueId}", method = RequestMethod.GET)
-    public List<DataValue> mapReduceDataValue(@PathVariable String dataValueId) {
+    public List<DataValue> mapReduceDataValue(@PathVariable String dataValueId) throws Exception {
         return service.mapReduceDataValue(dataValueId);
     }	
 	

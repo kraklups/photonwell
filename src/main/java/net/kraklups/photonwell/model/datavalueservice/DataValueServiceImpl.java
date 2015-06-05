@@ -1,9 +1,18 @@
 package net.kraklups.photonwell.model.datavalueservice;
 
+import static org.springframework.data.mongodb.core.mapreduce.MapReduceOptions.*;
+import static org.springframework.data.mongodb.core.query.Criteria.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.mapreduce.MapReduceResults;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import net.kraklups.photonwell.model.datavalue.DataValue;
 import net.kraklups.photonwell.model.datavalue.SeqDataValueService;
@@ -118,10 +127,27 @@ final class DataValueServiceImpl implements DataValueService {
     }
 
 	@Override
-	public List<DataValue> mapReduceDataValue(String datavalueId) {
+	public List<DataValue> mapReduceDataValue(String datavalueId) throws Exception {
 		
 		LOGGER.info("Updating dataValue entry with information: {}", mongoOperations.findAll(DataValue.class).size());
 		
+		//query: {fixedPoint: {"$lt" : ISODate("2003-03-13T00:00:00.000Z"), "$gte" : ISODate("2003-03-12T00:00:00.000Z")}}
+		//2003-03-12T16:48:49.965Z
+        //Query query = new Query(where("x").ne(new String[] { "a", "b" }));
+		//Query query = new Query(where("x").ne(new String[] { "a", "b" }).and("loc")
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		
+		final Date to = dateFormat.parse("2003-03-13T00:00:00.000Z");
+		final Date from = dateFormat.parse("2003-03-12T00:00:00.000Z");
+				
+		Query query = new Query();
+		
+		query.addCriteria(Criteria.where("fixedPoint").gte(from).lte(to));
+		
+		MapReduceResults<Double> results = mongoTemplate.mapReduce(query,"datavalue","classpath:map.js","classpath:reduce.js",Double.class);
+		
+		LOGGER.info("Resultado de la catastrofe: ", results);
 		
 		return null;
 	}
