@@ -31,7 +31,6 @@ public class EventTsk {
 	private String ruleEventTsk;
 	
 	public EventTsk() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public EventTsk(String eventTskId, String synchronizeId, String dataValueId, Date tvi, Date tvf, String ruleEventTsk) {

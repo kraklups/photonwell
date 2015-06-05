@@ -15,5 +15,7 @@ public interface DataValueService {
 	public DataValue findById(String id);
 	
 	public DataValue update(DataValue dataValue);
+	
+	public List<DataValue> mapReduceDataValue(String datavalueId);
 
 }

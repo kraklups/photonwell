@@ -33,7 +33,7 @@
         <validation-api.version>1.1.0.Final</validation-api.version>
         <spring-security.version>3.2.6.RELEASE</spring-security.version>
         <spring-data-commons.version>1.9.2.RELEASE</spring-data-commons.version>
-		<spring-data-mongodb.version>1.6.2.RELEASE</spring-data-mongodb.version>
+		<spring-data-mongodb.version>1.7.0.RELEASE</spring-data-mongodb.version>
 		<mongo-java-driver.version>2.13.0</mongo-java-driver.version>
 
         <!-- Plugin versions -->

@@ -1,6 +1,8 @@
 package net.kraklups.photonwell.model.datavalue;
 
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -31,13 +33,16 @@ public class DataValue {
 	
 	@Field
 	private String dtType;
+	
+	@Field
+	private Date fixedPoint;	
 		
 	public DataValue() {
 		
 	}
 	
 	public DataValue(String dataValueId, String taskPrkId, String elementPrkId, 
-    		String dataLoggerId, String sensorId, String dtValue, String dtType) {
+    		String dataLoggerId, String sensorId, String dtValue, String dtType, Date fixedPoint) {
 		this.dataValueId = dataValueId;
 		this.taskPrkId = taskPrkId;
 		this.elementPrkId = elementPrkId;
@@ -45,6 +50,7 @@ public class DataValue {
 		this.sensorId = sensorId;
 		this.dtValue = dtValue;
 		this.dtType = dtType;
+		this.fixedPoint = fixedPoint;
 	}
 	
 	public long getId() {
@@ -110,9 +116,17 @@ public class DataValue {
 	public void setDtType(String dtType) {
 		this.dtType = dtType;
 	}
+	
+	public Date getFixedPoint() {
+		return fixedPoint;
+	}
+	
+	public void setFixedPoint(Date fixedPoint) {
+		this.fixedPoint = fixedPoint;
+	}	
 
     public void update(String dataValueId, String taskPrkId, String elementPrkId, 
-    		String dataLoggerId, String sensorId, String dtValue, String dtType) {
+    		String dataLoggerId, String sensorId, String dtValue, String dtType, Date fixedPoint) {
     	
         this.dataValueId = dataValueId;
         this.taskPrkId = taskPrkId;
@@ -120,14 +134,16 @@ public class DataValue {
         this.dataLoggerId = dataLoggerId;
         this.sensorId = sensorId;
         this.dtValue = dtValue;
-        this.dtType = dtType;     
+        this.dtType = dtType; 
+		this.fixedPoint = fixedPoint;
     }	
 	
 	@Override
     public String toString() {
         return "DataValueMngDb [dataValueId=" + dataValueId + ", TaskPrk=" + taskPrkId + 
         		", ElementPrk=" + elementPrkId + ", DataLogger=" + dataLoggerId + 
-        		", Sensor=" + sensorId + ", value=" + dtValue + ", type=" + dtType + "]";
+        		", Sensor=" + sensorId + ", value=" + dtValue + ", type=" + dtType +
+        		", fixedPoint=" + fixedPoint +"]";
     }	
 	
 	

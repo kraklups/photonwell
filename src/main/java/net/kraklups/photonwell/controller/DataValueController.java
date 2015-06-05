@@ -51,9 +51,9 @@ final class DataValueController {
     }		
 	
 	
-	@RequestMapping(value = "/mrdatavalue", method = RequestMethod.GET)
-    public List<DataValue> mapReduceDataValue() {
-        return service.findAll();
+	@RequestMapping(value = "/mrdatavalue/{dataValueId}", method = RequestMethod.GET)
+    public List<DataValue> mapReduceDataValue(@PathVariable String dataValueId) {
+        return service.mapReduceDataValue(dataValueId);
     }	
 	
 	@ExceptionHandler

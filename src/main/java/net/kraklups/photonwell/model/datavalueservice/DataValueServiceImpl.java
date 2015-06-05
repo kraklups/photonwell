@@ -2,6 +2,9 @@ package net.kraklups.photonwell.model.datavalueservice;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
+
 import net.kraklups.photonwell.model.datavalue.DataValue;
 import net.kraklups.photonwell.model.datavalue.SeqDataValueService;
 import net.kraklups.photonwell.repositories.DataValueRepository;
@@ -26,6 +29,12 @@ final class DataValueServiceImpl implements DataValueService {
 	private final DataValueRepository repository;
 	
 	@Autowired
+	private MongoTemplate mongoTemplate;
+	
+	@Autowired 
+	private MongoOperations mongoOperations; 
+	
+	@Autowired
 	public DataValueServiceImpl(DataValueRepository repository) {
 		this.repository = repository;
 	}
@@ -36,7 +45,7 @@ final class DataValueServiceImpl implements DataValueService {
 		LOGGER.info("Creating a new dataValue entry with information: {}", dt.getDataValueId());
 		
 		DataValue persisted = new DataValue(dt.getDataValueId(), dt.getTaskPrkId(), dt.getElementPrkId(),
-				dt.getDataLoggerId(), dt.getSensorId(), dt.getDtValue(), dt.getDtType());
+				dt.getDataLoggerId(), dt.getSensorId(), dt.getDtValue(), dt.getDtType(), dt.getFixedPoint());
 		
 		persisted.setId(seqDataValueService.getNextSeqDataValueId(DATAVALUE_SEQ_KEY));
 		
@@ -83,6 +92,7 @@ final class DataValueServiceImpl implements DataValueService {
 
 	@Override
 	public DataValue update(DataValue dataValue) {
+		
 	    LOGGER.info("Updating dataValue entry with information: {}", dataValue);
 /*
 	    DataValue updated = findDataValueById(dataValue.getId());
@@ -106,5 +116,14 @@ final class DataValueServiceImpl implements DataValueService {
         	return result;
         }
     }
+
+	@Override
+	public List<DataValue> mapReduceDataValue(String datavalueId) {
+		
+		LOGGER.info("Updating dataValue entry with information: {}", mongoOperations.findAll(DataValue.class).size());
+		
+		
+		return null;
+	}
 	
 }
