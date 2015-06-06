@@ -18,10 +18,11 @@
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/controller/DataValueController.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/alarm/SeqAlarm.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/eventtskservice/EventTskServiceImpl.java
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalue/ValueObject.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/repositories/AlarmRepository.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/util/DataValueAppConfig.java
-/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalue/SeqDataValue.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalue/SeqDataValueService.java
+/home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/datavalue/SeqDataValue.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/controller/AlarmController.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/model/eventtsk/SeqEventTskService.java
 /home/nexus7/Project/photonwell/src/main/java/net/kraklups/photonwell/util/EventTskNotFoundException.java

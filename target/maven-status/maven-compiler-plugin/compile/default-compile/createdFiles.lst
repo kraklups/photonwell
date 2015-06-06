@@ -21,6 +21,7 @@ net/kraklups/photonwell/repositories/EventTskRepository.class
 net/kraklups/photonwell/util/SeqEventTskException.class
 net/kraklups/photonwell/util/AlarmNotFoundException.class
 net/kraklups/photonwell/model/eventtskservice/EventTskService.class
+net/kraklups/photonwell/model/datavalue/ValueObject.class
 net/kraklups/photonwell/util/DataValueNotFoundException.class
 net/kraklups/photonwell/repositories/AlarmRepository.class
 net/kraklups/photonwell/model/alarm/Alarm.class

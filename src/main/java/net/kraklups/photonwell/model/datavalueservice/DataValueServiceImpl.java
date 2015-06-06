@@ -1,21 +1,24 @@
 package net.kraklups.photonwell.model.datavalueservice;
 
-import static org.springframework.data.mongodb.core.mapreduce.MapReduceOptions.*;
-import static org.springframework.data.mongodb.core.query.Criteria.*;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+import static org.springframework.data.mongodb.core.mapreduce.MapReduceOptions.options;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapreduce.MapReduceResults;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import net.kraklups.photonwell.model.datavalue.DataValue;
 import net.kraklups.photonwell.model.datavalue.SeqDataValueService;
+import net.kraklups.photonwell.model.datavalue.ValueObject;
 import net.kraklups.photonwell.repositories.DataValueRepository;
 import net.kraklups.photonwell.util.DataValueNotFoundException;
 
@@ -23,6 +26,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 
 @Service
 final class DataValueServiceImpl implements DataValueService {
@@ -143,11 +149,13 @@ final class DataValueServiceImpl implements DataValueService {
 				
 		Query query = new Query();
 		
-		query.addCriteria(Criteria.where("fixedPoint").gte(from).lte(to));
-		
-		MapReduceResults<Double> results = mongoTemplate.mapReduce(query,"datavalue","classpath:map.js","classpath:reduce.js",Double.class);
-		
-		LOGGER.info("Resultado de la catastrofe: ", results);
+		query.addCriteria(Criteria.where("fixedPoint").lte(to).gte(from));
+				
+//		MapReduceResults<ValueObject> results = mongoTemplate.mapReduce(query,"datavalue","classpath:mapreducejs/map.js","classpath:mapreducejs/reduce.js",options().outputCollection("mierda"),ValueObject.class);
+		MapReduceResults<ValueObject> results = mongoTemplate.mapReduce(query,"datavalue","classpath:mapreducejs/map.js","classpath:mapreducejs/reduce.js",ValueObject.class);
+		for (ValueObject valueObject : results) {
+			System.out.println(valueObject);
+		}
 		
 		return null;
 	}
