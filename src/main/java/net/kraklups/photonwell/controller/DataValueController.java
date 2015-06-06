@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import net.kraklups.photonwell.model.datavalue.DataValue;
+import net.kraklups.photonwell.model.datavalue.ValueObject;
 import net.kraklups.photonwell.model.datavalueservice.DataValueService;
 import net.kraklups.photonwell.util.DataValueNotFoundException;
 
@@ -51,8 +52,8 @@ final class DataValueController {
     }		
 	
 	
-	@RequestMapping(value = "/mrdatavalue/{dataValueId}", method = RequestMethod.GET)
-    public List<DataValue> mapReduceDataValue(@PathVariable String dataValueId) throws Exception {
+	@RequestMapping(value = "/mrdatavalue/{dataValueId}", method = RequestMethod.GET, produces = "application/json")
+    public List<ValueObject> mapReduceDataValue(@PathVariable String dataValueId) throws Exception {
         return service.mapReduceDataValue(dataValueId);
     }	
 	

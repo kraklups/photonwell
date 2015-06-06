@@ -5,8 +5,8 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 import static org.springframework.data.mongodb.core.mapreduce.MapReduceOptions.options;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -27,8 +27,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Service
 final class DataValueServiceImpl implements DataValueService {
@@ -133,31 +133,44 @@ final class DataValueServiceImpl implements DataValueService {
     }
 
 	@Override
-	public List<DataValue> mapReduceDataValue(String datavalueId) throws Exception {
+	public List<ValueObject> mapReduceDataValue(String dataValueId) throws Exception {
 		
-		LOGGER.info("Updating dataValue entry with information: {}", mongoOperations.findAll(DataValue.class).size());
+		long epoch = 1047423600;
+		int i;
+		String ini, fin;
+		Date to, from;
 		
-		//query: {fixedPoint: {"$lt" : ISODate("2003-03-13T00:00:00.000Z"), "$gte" : ISODate("2003-03-12T00:00:00.000Z")}}
-		//2003-03-12T16:48:49.965Z
-        //Query query = new Query(where("x").ne(new String[] { "a", "b" }));
-		//Query query = new Query(where("x").ne(new String[] { "a", "b" }).and("loc")
-		
+		// LOGGER.info("Updating dataValue entry with information: {}", mongoOperations.findAll(DataValue.class).size());
+				
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+		List<ValueObject> valObj = new ArrayList<>();
 		
-		final Date to = dateFormat.parse("2003-03-13T00:00:00.000Z");
-		final Date from = dateFormat.parse("2003-03-12T00:00:00.000Z");
-				
-		Query query = new Query();
+		//final Date to = dateFormat.parse("2003-03-13T00:00:00.000Z"); //tiemstamp end: 1049245200
+		//final Date from = dateFormat.parse("2003-03-12T00:00:00.000Z"); //timestamp begin: 1047427200		
+		// String ddd = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(new java.util.Date (epoch*1000));		
 		
-		query.addCriteria(Criteria.where("fixedPoint").lte(to).gte(from));
-				
-//		MapReduceResults<ValueObject> results = mongoTemplate.mapReduce(query,"datavalue","classpath:mapreducejs/map.js","classpath:mapreducejs/reduce.js",options().outputCollection("mierda"),ValueObject.class);
-		MapReduceResults<ValueObject> results = mongoTemplate.mapReduce(query,"datavalue","classpath:mapreducejs/map.js","classpath:mapreducejs/reduce.js",ValueObject.class);
-		for (ValueObject valueObject : results) {
-			System.out.println(valueObject);
-		}
+		for(i=0;i<20;i++) {			
+			ini = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(new java.util.Date (epoch*1000));
+			fin = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(new java.util.Date ((epoch+86400)*1000));
 		
-		return null;
+			to = dateFormat.parse(fin);
+			from = dateFormat.parse(ini);
+
+			Query query = new Query();
+			
+			query.addCriteria(Criteria.where("fixedPoint").lte(to).gte(from));
+			
+			MapReduceResults<ValueObject> results = mongoTemplate.mapReduce(query,"datavalue","classpath:mapreducejs/map.js","classpath:mapreducejs/reduce.js",ValueObject.class);
+			for (ValueObject valueObject : results) {				
+				valueObject.setId(ini);				
+				valObj.add(valueObject);
+			}
+			
+			epoch += 86400;
+		}	
+		
+		return valObj;
 	}
 	
 }
