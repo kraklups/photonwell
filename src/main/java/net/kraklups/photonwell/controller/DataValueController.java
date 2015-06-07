@@ -51,7 +51,6 @@ final class DataValueController {
         return service.findById(dataValueId);
     }		
 	
-	
 	@RequestMapping(value = "/mrdatavalue/{dataValueId}", method = RequestMethod.GET, produces = "application/json")
     public List<ValueObject> mapReduceDataValue(@PathVariable String dataValueId) throws Exception {
         return service.mapReduceDataValue(dataValueId);
