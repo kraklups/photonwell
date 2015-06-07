@@ -147,7 +147,7 @@ final class DataValueServiceImpl implements DataValueService {
 		//final Date from = dateFormat.parse("2003-03-12T00:00:00.000Z"); //timestamp begin: 1047427200		
 		// String ddd = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(new java.util.Date (epoch*1000));		
 		
-		for(i=0;i<20;i++) {			
+		for(i=0;i<24;i++) {			
 			ini = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(new java.util.Date (epoch*1000));
 			fin = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(new java.util.Date ((epoch+86400)*1000));
 		
