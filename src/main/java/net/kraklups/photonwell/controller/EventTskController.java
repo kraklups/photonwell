@@ -46,7 +46,7 @@ final class EventTskController {
     }		
 
 	@RequestMapping(value = "/geteventtsk/{eventTskId}", method = RequestMethod.GET)
-    public EventTsk findEventTsk(@PathVariable String eventTskId) {
+    public @ResponseBody EventTsk findEventTsk(@PathVariable String eventTskId) {
 		
 		EventTsk eventTsk =  service.findById(eventTskId);
 		
