@@ -1,8 +1,8 @@
 package net.kraklups.photonwell.model.datavalueservice;
 
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-import static org.springframework.data.mongodb.core.query.Query.query;
-import static org.springframework.data.mongodb.core.mapreduce.MapReduceOptions.options;
+//import static org.springframework.data.mongodb.core.query.Criteria.where;
+//import static org.springframework.data.mongodb.core.query.Query.query;
+//import static org.springframework.data.mongodb.core.mapreduce.MapReduceOptions.options;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
