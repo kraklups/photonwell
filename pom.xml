@@ -11,14 +11,21 @@
 	<url>http://maven.apache.org</url>
 	<description>photonwell-app</description>
 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.2.4.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
 	<properties>
         <!-- Encoding -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <start-class>DataValueAppConfig</start-class>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<start-class>net.kraklups.photonwell.util.DataValueAppConfig</start-class>
 
-        <!-- Package versions (except those defined in "profiles" section) -->
-        <slf4j.version>1.7.10</slf4j.version>
+		<!-- Package versions (except those defined in "profiles" section) -->
+		<slf4j.version>1.7.10</slf4j.version>
         <javassist.version>3.19.0-GA</javassist.version>
         <cglib.version>3.1</cglib.version>
         <hibernate.version>4.3.8.Final</hibernate.version>
@@ -43,62 +50,14 @@
         <mavenAssemblyPlugin.version>2.5.3</mavenAssemblyPlugin.version>
         <jettyMavenPlugin>9.3.0.M1</jettyMavenPlugin>
         <mavenEclipsePlugin.version>2.9</mavenEclipsePlugin.version>
+        <mavenWarPlugin.version>2.6</mavenWarPlugin.version>
 		<java.version>1.7</java.version>
 	</properties>
 
     <!-- ========================================================== -->    
     <!-- Dependency management -->      
-	<dependencyManagement>
-    	<dependencies>
-			<!-- SLF4J (required by Hibernate) -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-simple</artifactId>
-				<version>${slf4j.version}</version>
-				<scope>runtime</scope>
-			</dependency>   
-			 	
-			<!-- JUnit -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-				<scope>test</scope>
-			</dependency>
-			
-        <dependency>
-            <!-- Import dependency management from Spring Boot -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-dependencies</artifactId>
-            <version>${spring-boot-parent.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>			
-			
-    	    <dependency>
-        	    <groupId>org.springframework</groupId>
-            	<artifactId>spring-framework-bom</artifactId>
-            	<version>${spring.version}</version>
-            	<type>pom</type>
-            	<scope>import</scope>
-        	</dependency>
-    	</dependencies>
-	</dependencyManagement> 
     <!-- ========================================================== -->	    	
 	<dependencies>
-		<!-- SLF4J (required by Hibernate) -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<scope>runtime</scope>
-		</dependency>	
-		
-		<!-- JUnit -->
-    	<dependency>
-      	<groupId>junit</groupId>
-      	<artifactId>junit</artifactId>
-      	<scope>test</scope>
-    	</dependency>
     	
         <!-- Spring -->           
         <dependency>
@@ -189,11 +148,11 @@
             </resource>
         </resources>        
         
-        <plugins>        
+        <plugins>       
+                    
 			<plugin>
     			<groupId>org.apache.maven.plugins</groupId>
     			<artifactId>maven-eclipse-plugin</artifactId>
-    			<version>${mavenEclipsePlugin.version}</version>  
     			<configuration>
         			<additionalBuildcommands>
             			<buildCommand>org.springframework.ide.eclipse.core.springbuilder</buildCommand>
@@ -204,14 +163,13 @@
         			<downloadSources>true</downloadSources>
         			<downloadJavadocs>true</downloadJavadocs>
     			</configuration>
-			</plugin>   
-			     
+			</plugin>                       
+
             <!-- ========================================================== -->
             <!-- Compiler configuration -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${mavenCompilerPlugin.version}</version>
                 <configuration>
                     <verbose>true</verbose>
                     <source>${java.version}</source>
@@ -221,22 +179,30 @@
                     <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
-            
+
 			<!-- ========================================================== -->
             <!-- Resources plugin (2.4.x versions do not correctly filter
                  files containing '@' character). -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>${mavenResourcesPlugin.version}</version>
             </plugin>
                     
 			<!-- ========================================================== -->
         	<!-- Spring Boot Maven Support -->
 	        <plugin>
     	        <groupId>org.springframework.boot</groupId>
-        	    <artifactId>spring-boot-maven-plugin</artifactId>
-        	    <version>${spring-boot-parent.version}</version>
+        	    <artifactId>spring-boot-maven-plugin</artifactId>        	    
+				<configuration>
+					<mainClass>${start-class}</mainClass>
+				</configuration> 
+				<executions>
+        			<execution>
+            			<goals>
+                			<goal>repackage</goal>
+            			</goals>
+        			</execution>
+    			</executions>
         	</plugin>
             
 		</plugins>            
