@@ -13,6 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -31,6 +34,9 @@ final class AlarmServiceImpl  implements AlarmService {
 	
 	@Autowired
 	private final AlarmRepository repository;
+	
+	@Autowired
+	private MongoTemplate mongoTemplate;	
 	
     @Autowired
     @Qualifier("urlAlarmTriggeredREST")
@@ -135,11 +141,11 @@ final class AlarmServiceImpl  implements AlarmService {
 	@Override
 	public Alarm findById(String id) {
 		
-		LOGGER.info("Finding EventTsk entry with id: {}", id);
+		Query query = new Query(Criteria.where("_id").is(Long.parseLong(id)));
 		
-		Alarm found = repository.findOne(id);
+		Alarm found = mongoTemplate.findOne(query,Alarm.class);
 		
-		LOGGER.info("Found todo entry: {}", found);
+		System.out.println("Found todo entry: " + found);
 		
 		return found;
 	}
