@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapreduce.MapReduceResults;
 
@@ -42,10 +41,7 @@ final class DataValueServiceImpl implements DataValueService {
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
-	
-	@Autowired 
-	private MongoOperations mongoOperations; 
-	
+		
 	@Autowired
 	public DataValueServiceImpl(DataValueRepository repository) {
 		this.repository = repository;
@@ -130,7 +126,8 @@ final class DataValueServiceImpl implements DataValueService {
     }
 
 	@Override
-	public List<ValueObject> mapReduceDataValue(String dataValueId) throws Exception {
+	public List<ValueObject> mapReduceDataValue(String dataValueId) 
+			throws Exception {
 		
 		long epoch = 1047423600;
 		int i;

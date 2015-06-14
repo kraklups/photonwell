@@ -34,5 +34,10 @@
 	<context:annotation-config />
 
 	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+	
+	<!-- URLs for REST services  -->              
+	<bean id="urlAlarmTriggeredREST" class="net.kraklups.photonwell.util.RestServiceURL">
+    	<property name="urlREST" value="http://localhost:9090/solar-app/rest/notifyalarm"/>
+  	</bean>       
 
 </beans>

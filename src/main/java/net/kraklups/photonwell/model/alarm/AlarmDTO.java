@@ -2,48 +2,29 @@ package net.kraklups.photonwell.model.alarm;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers.DateDeserializer;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 
-@Document (collection="alarm")
-public class Alarm implements java.io.Serializable {
-
-	private static final long serialVersionUID = -3935145548645668227L;
-
-	@Id
-	private long id;
+public class AlarmDTO implements java.io.Serializable {
 	
-	@Field
+	private static final long serialVersionUID = -6265856995241815492L;
+
+	private Date triggerDate;	
+		
 	private String eventTskId;
 	
-	@Field
-	private Date triggerDate;
-	
-	@Field
 	private String ruleEventTsk;
 	
-	public Alarm() {
+	public AlarmDTO() {		
 	}
 	
-	public Alarm(Date triggerDate, String eventTskId, String ruleEventTsk) {
+	public AlarmDTO(Date triggerDate, String eventTskId, String ruleEventTsk) {
 		this.eventTskId = eventTskId;
 		this.triggerDate = triggerDate;
 		this.ruleEventTsk = ruleEventTsk;
 	}
-	
-	public long getId() {
-		return id;
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}	
 
 	public String getEventTskId() {
 		return eventTskId;
@@ -53,7 +34,7 @@ public class Alarm implements java.io.Serializable {
 		this.eventTskId = eventTskId;
 	}	
 	
-	@JsonSerialize(using=DateSerializer.class)
+	@JsonSerialize(using=DateSerializer.class)	
 	public Date getTriggerDate() {
 		return triggerDate;
 	}
@@ -70,16 +51,10 @@ public class Alarm implements java.io.Serializable {
 	public void setRuleEventTsk(String ruleEventTsk) {
 		this.ruleEventTsk = ruleEventTsk;
 	}
-	
-	public void update(String eventTskId, Date triggerDate, String ruleEventTsk) {
-		this.eventTskId = eventTskId;
-		this.triggerDate = triggerDate;
-		this.ruleEventTsk = ruleEventTsk;
-	}	
-	
+			
 	@Override
     public String toString() {
-        return "AlarmMngDb [eventTskId=" + eventTskId + 
+        return "AlarmMngDb [eventTskId=" + eventTskId +  
         		", triggerDate=" + triggerDate + ", ruleEventTsk=" + ruleEventTsk + "]";
     }	
 }

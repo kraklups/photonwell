@@ -34,9 +34,11 @@ final class AlarmController {
 	public AlarmController(AlarmService service) {
 		this.service = service;
 	}
-
-	@RequestMapping(value = "/addalarm", method = RequestMethod.POST)
-	public @ResponseBody Alarm create(@RequestBody @Valid Alarm alarm) {
+	
+	@RequestMapping(value = "/addalarm", method = RequestMethod.POST, headers="Accept=application/json", consumes = "application/json", produces = "application/json")
+	public @ResponseBody Alarm create(@RequestBody @Valid Alarm alarm) 
+			throws Exception {
+		
 		return service.create(alarm);
 	}
 	
@@ -45,17 +47,34 @@ final class AlarmController {
         return service.findAll();
     }		
 
-	@RequestMapping(value = "/getalarm/{alarmId}", method = RequestMethod.GET)
-    public Alarm findAlarm(@PathVariable String alarmId) {
+	@RequestMapping(value = "/getalarm/{id}", method = RequestMethod.GET)
+    public Alarm findAlarm(@PathVariable String id) {
 		
-		Alarm alarm =  service.findById(alarmId);
+		Alarm alarm =  service.findById(id);
 		
         return alarm;
     }			
 	
 	@ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void handleDataValueNotFound(AlarmNotFoundException ex) {
+    public String handleAlarmNotFound(AlarmNotFoundException ex) {
 		LOGGER.error("Handling error with message: {}", ex.getMessage());
+		return ex.getMessage();
     }
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String handleClientErrors(Exception ex) {
+        LOGGER.error(ex.getMessage(), ex);
+        return ex.getMessage();
+    }
+ 
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public String handleServerErrors(Exception ex) {
+        LOGGER.error(ex.getMessage(), ex);
+        return ex.getMessage();
+    }	
 }

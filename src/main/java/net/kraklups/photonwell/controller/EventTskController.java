@@ -55,7 +55,7 @@ final class EventTskController {
 	
 	@ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void handleDataValueNotFound(EventTskNotFoundException ex) {
+    public void handleEventTskNotFound(EventTskNotFoundException ex) {
 		LOGGER.error("Handling error with message: {}", ex.getMessage());
     }
 }

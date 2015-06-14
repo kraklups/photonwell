@@ -16,7 +16,7 @@ public interface AlarmRepository extends MongoRepository<Alarm, String> {
 	
 	public Alarm findOne(String id);
 	
-	public Alarm findByAlarmId(String alarmId);
+	public List<Alarm> findByEventTskId(String eventTskId);
 	
 	@SuppressWarnings("unchecked")
 	public Alarm save(Alarm saved);

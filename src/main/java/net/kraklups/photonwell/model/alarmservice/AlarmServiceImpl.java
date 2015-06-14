@@ -3,15 +3,21 @@ package net.kraklups.photonwell.model.alarmservice;
 import java.util.List;
 
 import net.kraklups.photonwell.model.alarm.Alarm;
+import net.kraklups.photonwell.model.alarm.AlarmDTO;
 import net.kraklups.photonwell.model.alarm.SeqAlarmService;
 import net.kraklups.photonwell.repositories.AlarmRepository;
-import net.kraklups.photonwell.util.AlarmNotFoundException;
+import net.kraklups.photonwell.util.RestServiceURL;
 import net.kraklups.photonwell.util.SeqAlarmException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 final class AlarmServiceImpl  implements AlarmService {
@@ -26,22 +32,29 @@ final class AlarmServiceImpl  implements AlarmService {
 	@Autowired
 	private final AlarmRepository repository;
 	
+    @Autowired
+    @Qualifier("urlAlarmTriggeredREST")
+    private RestServiceURL urlAlarmTriggeredREST;
+    
 	@Autowired
 	public AlarmServiceImpl(AlarmRepository repository) {
 		this.repository = repository;
 	}
 	
 	@Override
-	public Alarm create(Alarm alarm) throws SeqAlarmException {
+	public Alarm create(Alarm alarm) 
+			throws SeqAlarmException, Exception {
 
 		LOGGER.info("Creating a new alarm entry with information: {}", alarm.getEventTskId());
 		
-		Alarm persisted = new Alarm(alarm.getEventTskId(), alarm.getAlarmId(), 
-        		alarm.getTriggerDate(), alarm.getRuleEventTsk());
+		Alarm persisted = new Alarm(alarm.getTriggerDate(), 
+				alarm.getEventTskId(), alarm.getRuleEventTsk());
 		
 		persisted.setId(seqAlarmService.getNextSeqAlarmId(ALARM_SEQ_KEY));
 		
-		persisted = repository.save(persisted);
+		persisted = repository.save(persisted);		
+		
+		alarmTriggered(persisted);
 		
 		LOGGER.info("Created a new alarm entry with information: {}", persisted);
 		
@@ -49,10 +62,10 @@ final class AlarmServiceImpl  implements AlarmService {
 	}
 
 	@Override
-	public Alarm delete(String alarmId) {
-		LOGGER.info("Deleting a Alarm entry with id: {}", alarmId);
+	public Alarm delete(String id) {
+		LOGGER.info("Deleting a Alarm entry with id: {}", id);
 		
-		Alarm deleted = findAlarmById(alarmId);
+		Alarm deleted = repository.findOne(id);
         repository.delete(deleted);
 
         LOGGER.info("Deleted todo entry with informtation: {}", deleted);
@@ -70,18 +83,7 @@ final class AlarmServiceImpl  implements AlarmService {
 
         return alarmEntries;
 	}
-	
-	@Override
-	public Alarm findById(String alarmId) {
-	    LOGGER.info("Finding Alarm entry with id: {}", alarmId);
-
-	    Alarm found = findAlarmById(alarmId);
-
-        LOGGER.info("Found todo entry: {}", found);
-
-        return found;
-    }
-	
+		
 	@Override
 	public Alarm update(Alarm alarm) {
 	    LOGGER.info("Updating Alarm entry with information: {}", alarm);
@@ -98,14 +100,48 @@ final class AlarmServiceImpl  implements AlarmService {
 	    return null;
 	}
 
-	private Alarm findAlarmById(String alarmId) {
-		Alarm result = repository.findByAlarmId(alarmId);
-        
-        if (result == null) {
-        	throw new AlarmNotFoundException(alarmId);
-        } else {
-        	return result;
-        }
-    }
+	@Override
+	public void alarmTriggered(Alarm alarm) 
+			throws Exception {
+		
+		final String SERVER_URI = urlAlarmTriggeredREST.getUrlREST().toString(); 
+		
+		LOGGER.debug("Starting REST Client!!!!");
+			
+		RestTemplate restTemplate = new RestTemplate();
+		
+		AlarmDTO alarmDTO = new AlarmDTO(alarm.getTriggerDate(), alarm.getEventTskId(), alarm.getRuleEventTsk());
+								
+		try {
+			
+			ResponseEntity<AlarmDTO> responseEntity = restTemplate.postForEntity(SERVER_URI, alarmDTO, AlarmDTO.class);
+			
+		//	Integer response = restTemplate.getForObject("http://localhost:9090/solar-app/rest/alarmTriggered/1", Integer.class);
+	            			
+			AlarmDTO response = responseEntity.getBody();
+			
+			System.out.println("merde: " + response);
+
+		}catch(HttpStatusCodeException e){
+			String errorpayload = e.getResponseBodyAsString();
+			System.out.println("nadia: " + errorpayload);
+			
+		} catch(RestClientException e){
+			 
+		}		
+				
+	}
+
+	@Override
+	public Alarm findById(String id) {
+		
+		LOGGER.info("Finding EventTsk entry with id: {}", id);
+		
+		Alarm found = repository.findOne(id);
+		
+		LOGGER.info("Found todo entry: {}", found);
+		
+		return found;
+	}
 	
 }
